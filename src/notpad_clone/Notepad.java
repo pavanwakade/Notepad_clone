@@ -67,7 +67,7 @@ public class Notepad {
 		frame.setSize(700, 500);
 
 		Image logo = Toolkit.getDefaultToolkit()
-				.getImage("D:\\coding with pavan\\Qspiders\\java\\notpad\\res\\temp\\Logo.jpg");
+				.getImage("D:\\coding with pavan\\Qspiders\\java\\notpad_clone\\res\\logo.jpg");
 		frame.setIconImage(logo);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
@@ -407,6 +407,10 @@ public class Notepad {
 		});
 		itemFontSize.add(size40);
 	}
+	
+	
+
+	
 
 	public void setFontSize(int size) {
 		arial = new Font("Arial", Font.PLAIN, size);
@@ -506,14 +510,17 @@ public class Notepad {
 		LanguageMenu.add(itemjava);
 		ActionLanguage(itemjava, "Java");
 
+		
 		itemHTML = new JMenuItem("HTML");
 		LanguageMenu.add(itemHTML);
 		ActionLanguage(itemHTML, "HTML");
 
+		
 		itemC = new JMenuItem("C");
 		LanguageMenu.add(itemC);
 		ActionLanguage(itemC, "C");
 
+		
 		itemCPP = new JMenuItem("CPP");
 		LanguageMenu.add(itemCPP);
 		ActionLanguage(itemCPP, "CPP");
@@ -528,11 +535,12 @@ public class Notepad {
 			}
 		});
 	}
+	
 
 	public void setLangage(String lang) {
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader( "D:\\coding with pavan\\Qspiders\\java\\notpad\\res\\temp\\"+lang + "Format.txt"));
+			br = new BufferedReader(new FileReader( "D:\\coding with pavan\\Qspiders\\java\\notpad_clone\\res\\"+lang + "Format.txt"));
 
 			String sentence = br.readLine();
 			textArea.setText("");
