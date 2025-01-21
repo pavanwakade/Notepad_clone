@@ -1,4 +1,4 @@
-package notpad_clone;
+package notpad;
 
 import java.awt.FileDialog;
 import java.awt.Font;
@@ -24,13 +24,23 @@ import javax.swing.JTextArea;
 import javax.swing.Spring;
 
 public class Notepad {
-
+	
+	//Globle variable for Frame
 	JFrame frame;
+	
+	//Globle variable for MenuBar
 	JMenuBar menuBar;
+	
+	//Globle variable for TextArea
 	JTextArea textArea;
+	
+	//Default Font Style
 	String fontStyle = "Arial";
+	
+	//Fonts Used
 	Font arial, sansSerif, consolas, newRoman, Monospaced;;
 
+	//Default font Size
 	int fontSize = 18;
 
 	// Items for a Menubar
@@ -49,6 +59,7 @@ public class Notepad {
 	String openFileName = null;
 	boolean wrap = false;
 
+	// Constructor
 	public Notepad() {
 		createFrame();
 		createTextArea();
@@ -59,34 +70,52 @@ public class Notepad {
 		createCommandPromtItems();
 		createLanguageItem();
 		setFontSize(fontSize);
-		
 	}
 
+	
+	 // Creates the main application GUI
 	public void createFrame() {
-		frame = new JFrame("Notepad");
+		frame = new JFrame("Notepad");   //GUI with title
+		
+		// Set window size
 		frame.setSize(700, 500);
 
+		// Set window icon
 		Image logo = Toolkit.getDefaultToolkit()
 				.getImage("D:\\coding with pavan\\Qspiders\\java\\notpad_clone\\res\\logo.jpg");
 		frame.setIconImage(logo);
+
+		// Set close operation and make window visible
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
+	
+	// Creates the text editing area
 	public void createTextArea() {
 		textArea = new JTextArea();
+		
+		//Textarea Add to frame
 		frame.add(textArea);
+		
+		// Set default font
 		textArea.setFont(new Font("Arial", Font.PLAIN, 18));
 	}
 
+	
+	
+	 // Adds scroll bars to the text area when needed
 	public void createSrollBars() {
 		JScrollPane scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		frame.add(scroll);
-
 	}
 
+	
+	
+	
+	// Creates the MenuBar on Window
 	public void createMenuBar() {
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -102,11 +131,13 @@ public class Notepad {
 
 		commandPromptMenu = new JMenu("CommandPrompt");
 		menuBar.add(commandPromptMenu);
-
 	}
 
+	
+	// Creates all items in the File menu
 	public void createFileMenuItems() {
 
+		// Create menu item and action listener for  'New'
 		itemNew = new JMenuItem("New");
 
 		itemNew.addActionListener(new ActionListener() {
@@ -121,6 +152,9 @@ public class Notepad {
 		});
 		fileMenu.add(itemNew);
 
+		
+		
+		// Create menu item and action listener for 'New Window'
 		itemNewWindow = new JMenuItem("New Window");
 		itemNewWindow.addActionListener(new ActionListener() {
 
@@ -128,24 +162,29 @@ public class Notepad {
 			public void actionPerformed(ActionEvent e) {
 				Notepad n1 = new Notepad();
 				n1.frame.setTitle("Untitled");
-
 			}
 		});
 		fileMenu.add(itemNewWindow);
 
+		
+		
+		// Create menu item and action listener for "Open" file
 		itemOpen = new JMenuItem("Open");
 		itemOpen.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				//create a dilog for loading file
 				FileDialog fd = new FileDialog(frame, "Open", FileDialog.LOAD);
 				fd.setVisible(true);
 
-				// For read the data from file
+				// Get selected file path and name
 				String path = fd.getDirectory();
 				String filename = fd.getFile();
 				System.out.println(filename);
+				
+				// Update window title and file info if file selected
 				if (filename != null) {
 
 					frame.setTitle(filename);
@@ -153,17 +192,21 @@ public class Notepad {
 					openFileName = filename;
 				}
 
+				 // Read and display file contents from directory
 				BufferedReader br = null;
 				try {
 					br = new BufferedReader(new FileReader(path + filename));
 
 					String sentence = br.readLine();
-					textArea.setText("");
+					
+					//Empty string for cleaning textarea
+					textArea.setText("");  
+					
+					// Read file line by line
 					while (sentence != null) {
 						textArea.append(sentence + "\n");
 						sentence = br.readLine();
 					}
-
 				} catch (FileNotFoundException e1) {
 
 //					JOptionPane.showMessageDialog(frame, "File Not Found" + e1.getMessage(), "Error",
@@ -181,6 +224,7 @@ public class Notepad {
 
 				} finally {
 					try {
+						// Close the reader
 						br.close();
 					} catch (IOException e1) {
 //						JOptionPane.showMessageDialog(frame, "File could not be Open" + e1.getMessage(), "Error",
@@ -191,31 +235,36 @@ public class Notepad {
 //						JOptionPane.showMessageDialog(frame, "File Not Found" + e2.getMessage(), "Error",
 //								JOptionPane.ERROR_MESSAGE);
 //						;
-
 					}
 				}
 			}
 		});
 		fileMenu.add(itemOpen);
 
+		
+		// Create  menu item and action listener for "Save As" 
 		itemSave = new JMenuItem("Save");
 		itemSave.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				// Save file if location selected
 				if (openFileName != null && openPath != null) {
 					writeDataToFile(openFileName, openPath);
 				} else {
+					
+					// Show Save As dialog
 					FileDialog fd = new FileDialog(frame, "Save As", FileDialog.SAVE);
 					fd.setVisible(true);
 
 					String path = fd.getDirectory();
-					String filename = fd.getFile();
+					String fileName = fd.getFile();
 
-					if (filename != null && path != null) {
-						writeDataToFile(filename, path);
-						openFileName = filename;
+					
+					if (fileName != null && path != null) {
+						writeDataToFile(fileName, path);
+						openFileName = fileName;
 						openPath = path;
 						frame.setTitle(openPath);
 					}
@@ -224,6 +273,8 @@ public class Notepad {
 		});
 		fileMenu.add(itemSave);
 
+		
+		// Create menu item and ActionListener for "Save As"
 		itemSaveAs = new JMenuItem("Save As");
 
 		itemSaveAs.addActionListener(new ActionListener() {
@@ -231,27 +282,28 @@ public class Notepad {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				// Show Save As dialog
 				FileDialog fd = new FileDialog(frame, "Save As", FileDialog.SAVE);
-
 				fd.setVisible(true);
 
 				String path = fd.getDirectory();
 
-				String filename = fd.getFile();
+				String fileName = fd.getFile();
 
-				if (path != null & filename != null) {
-
-					writeDataToFile(filename, path);
-					openFileName = filename;
+				// set title for window
+				if (path != null & fileName != null) {
+					writeDataToFile(fileName, path);
+					openFileName = fileName;
 					openPath = path;
 					frame.setTitle(openPath);
 				}
 
 			}
 		});
-
 		fileMenu.add(itemSaveAs);
 
+		
+		// Create menu item and ActionListener for "Exit"
 		itemExit = new JMenuItem("Exit");
 		fileMenu.add(itemExit);
 		itemExit.addActionListener(new ActionListener() {
@@ -262,45 +314,17 @@ public class Notepad {
 				frame.dispose();
 			}
 		});
-
 	}
 
-	JMenuItem itemArial, itemMonospaced, itemTimesNewRoman, itemConsolas;
-
-	public void fonts() {
-		formatMenu.add(itemFont);
-
-		itemArial = new JMenuItem("Arial");
-
-		ActionFont(itemArial, "Arial");
-
-		itemMonospaced = new JMenuItem("Monospaced");
-
-		ActionFont(itemMonospaced, "Monospaced");
-
-		itemTimesNewRoman = new JMenuItem("Times new Roman");
-
-		ActionFont(itemTimesNewRoman, "Times new Roman");
-
-		itemConsolas = new JMenuItem("Consolas");
-
-		ActionFont(itemConsolas, "Consolas");
-
-	}
-
-	public void ActionFont(JMenuItem menu, String font) {
-		menu.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setfontStyle(font);
-			}
-		});
-		itemFont.add(menu);
-	}
-
+	
+	 // Creates all items in the Format menu
 	public void createFormatMenuItems() {
+		
+		// set Default word wrap ON 
 		wrap = true;
+		
+		
+		// Create menu item and ActionListener for "word wrap"
 		itemWordWrap = new JMenuItem("Word Wrap ON");
 		formatMenu.add(itemWordWrap);
 		textArea.setLineWrap(true);
@@ -324,8 +348,64 @@ public class Notepad {
 		});
 
 		itemFont = new JMenu("Font");
-		fonts();
 
+		
+		
+		// Create menu item and ActionListener for Arial font
+		formatMenu.add(itemFont);
+
+		JMenuItem itemArial = new JMenuItem("Arial");
+
+		itemArial.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setfontStyle("Arial");
+			}
+		});
+		itemFont.add(itemArial);
+
+		// Create menu item and ActionListener for "Monospaced" font
+		JMenuItem itemMonospaced = new JMenuItem("Monospaced");
+
+		itemMonospaced.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setfontStyle("Monospaced");
+			}
+		});
+		itemFont.add(itemMonospaced);
+
+		
+		// Create menu item and ActionListener for "Times new Roman" font
+		JMenuItem itemTimesNewRoman = new JMenuItem("Times new Roman");
+
+		itemTimesNewRoman.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setfontStyle("Times new Roman");
+			}
+		});
+		itemFont.add(itemTimesNewRoman);
+
+		
+		// Create menu item and ActionListener for "Consolas" font
+		JMenuItem itemConsolas = new JMenuItem("Consolas");
+
+		itemConsolas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setfontStyle("Consolas");
+			}
+		});
+		itemFont.add(itemConsolas);
+
+		
+		 // Add various font size options
+        // Size 20
 		itemFontSize = new JMenu("Font Size");
 		formatMenu.add(itemFontSize);
 
@@ -338,8 +418,12 @@ public class Notepad {
 				setFontSize(20);
 			}
 		});
+
 		itemFontSize.add(size20);
 
+		
+		
+		// Size "24"
 		JMenuItem size24 = new JMenuItem("24");
 
 		size24.addActionListener(new ActionListener() {
@@ -347,11 +431,14 @@ public class Notepad {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFontSize(24);
-
 			}
 		});
 		itemFontSize.add(size24);
 
+		
+		
+		
+		// Size "28"
 		JMenuItem size28 = new JMenuItem("28");
 
 		size28.addActionListener(new ActionListener() {
@@ -363,6 +450,10 @@ public class Notepad {
 		});
 		itemFontSize.add(size28);
 
+		
+		
+		
+		// Size "30"
 		JMenuItem size30 = new JMenuItem("30");
 
 		size30.addActionListener(new ActionListener() {
@@ -374,6 +465,10 @@ public class Notepad {
 		});
 		itemFontSize.add(size30);
 
+		
+		
+		
+		// Size "32"
 		JMenuItem size32 = new JMenuItem("32");
 
 		size32.addActionListener(new ActionListener() {
@@ -385,6 +480,9 @@ public class Notepad {
 		});
 		itemFontSize.add(size32);
 
+		
+		
+		// Size "35"
 		JMenuItem size35 = new JMenuItem("35");
 
 		size35.addActionListener(new ActionListener() {
@@ -396,6 +494,8 @@ public class Notepad {
 		});
 		itemFontSize.add(size35);
 
+		
+		// Size "40"
 		JMenuItem size40 = new JMenuItem("40");
 
 		size40.addActionListener(new ActionListener() {
@@ -407,20 +507,25 @@ public class Notepad {
 		});
 		itemFontSize.add(size40);
 	}
-	
-	
 
 	
-
+	
+	// Sets the font size for all available fonts
 	public void setFontSize(int size) {
+		
+		 // set all fonts with the new size
 		arial = new Font("Arial", Font.PLAIN, size);
 		newRoman = new Font("Times new Roman", Font.PLAIN, size);
 		consolas = new Font("Consolas", Font.PLAIN, size);
 		Monospaced = new Font("Monospaced", Font.PLAIN, size);
 
+		// Apply the current font style with new size
 		setfontStyle(fontStyle);
 	}
 
+	
+
+    // Sets the font style for the text area
 	public void setfontStyle(String font) {
 
 		fontStyle = font;
@@ -443,18 +548,23 @@ public class Notepad {
 			break;
 		default: {
 			textArea.setFont(arial);
+		  }
 		}
-		}
-
 	}
 
-	public void writeDataToFile(String filename, String path) {
+	
+	
+	 // Writes text area content to a file
+	public void writeDataToFile(String fileName, String path) {
 
+		// Create writer for the file
 		BufferedWriter bw = null;
 		try {
-			bw = new BufferedWriter(new FileWriter(path + filename));
+			bw = new BufferedWriter(new FileWriter(path + fileName));
 
 			String text = textArea.getText();
+			
+			// Write text to file
 			bw.write(text);
 
 		} catch (IOException e1) {
@@ -464,6 +574,8 @@ public class Notepad {
 			;
 		} finally {
 			try {
+				
+				// Close the writer
 				bw.close();
 			} catch (IOException e1) {
 
@@ -480,14 +592,22 @@ public class Notepad {
 
 	}
 
+	
+	// Creates the Command Prompt menu item
 	public void createCommandPromtItems() {
+		
+		// Create menu item and ActionListener for "Open Cmd" 
 		itemCMD = new JMenuItem("Open Cmd");
 		commandPromptMenu.add(itemCMD);
 
+		
+		// Create menu item and ActionListener for "Open Cmd" font
 		itemCMD.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				// Open CMD in current file location or default location
 				try {
 					if (openPath != null) {
 						Runtime.getRuntime().exec(new String[] { "cmd", "/k", "start" }, null, new File(openPath));
@@ -503,45 +623,71 @@ public class Notepad {
 		});
 	}
 
-	JMenuItem itemjava, itemHTML, itemC, itemCPP;
-
+	
+	
+	 // Creates the Language menu items
 	public void createLanguageItem() {
-		itemjava = new JMenuItem("Java");
+		
+		
+		// Add Java language template
+		JMenuItem itemjava = new JMenuItem("Java");
 		LanguageMenu.add(itemjava);
-		ActionLanguage(itemjava, "Java");
-
-		
-		itemHTML = new JMenuItem("HTML");
-		LanguageMenu.add(itemHTML);
-		ActionLanguage(itemHTML, "HTML");
-
-		
-		itemC = new JMenuItem("C");
-		LanguageMenu.add(itemC);
-		ActionLanguage(itemC, "C");
-
-		
-		itemCPP = new JMenuItem("CPP");
-		LanguageMenu.add(itemCPP);
-		ActionLanguage(itemCPP, "CPP");
-	}
-
-	public void ActionLanguage(JMenuItem menu, String language) {
-		menu.addActionListener(new ActionListener() {
-
+		itemjava.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setLangage(language);
+				setLangage("Java");
+			}
+		});
+
+		
+		
+		// Add HTML language template
+		JMenuItem itemHTML = new JMenuItem("HTML");
+		LanguageMenu.add(itemHTML);
+		itemHTML.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setLangage("HTML");
+			}
+		});
+
+		
+		
+		// Add C language template
+		JMenuItem itemC = new JMenuItem("C");
+		LanguageMenu.add(itemC);
+		itemC.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setLangage("C");
+			}
+		});
+
+		
+		
+		// Add "CPP" language template
+		JMenuItem itemCPP = new JMenuItem("CPP");
+		LanguageMenu.add(itemCPP);
+		itemCPP.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setLangage("CPP");
 			}
 		});
 	}
-	
 
+	
+	
+	// Loads language template from file
 	public void setLangage(String lang) {
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader( "D:\\coding with pavan\\Qspiders\\java\\notpad_clone\\res\\"+lang + "Format.txt"));
+			 // Read template file for selected language from location
+			br = new BufferedReader(
+					new FileReader("D:\\coding with pavan\\Qspiders\\java\\notpad_clone\\res\\" + lang + "Format.txt"));
 
+			
+			// Read and display template content
 			String sentence = br.readLine();
 			textArea.setText("");
 			while (sentence != null) {
@@ -561,6 +707,8 @@ public class Notepad {
 
 		} finally {
 			try {
+				
+				// Close the reader
 				br.close();
 			} catch (IOException e1) {
 //				JOptionPane.showMessageDialog(frame,"File could not be Open"+e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);  ;           
