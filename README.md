@@ -9,10 +9,10 @@
 
 <div align="center">
   
-  [![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://pavanwakade-portfolio.netlify.app/)
+  [![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://pavanwakade.netlify.app/)
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pavan-wakade-5a851b25b/)
   [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:pavanwakade199@gmail.com)
-  [![Resume](https://img.shields.io/badge/Resume-4285F4?style=for-the-badge&logo=google-drive&logoColor=white)](https://docs.google.com/document/d/1FWFTKJRn8ziJNjaNfGeWQM8yOR10eTw8/edit?usp=drive_link&ouid=102397706253665987194&rtpof=true&sd=true)
+  [![Resume](https://img.shields.io/badge/Resume-4285F4?style=for-the-badge&logo=google-drive&logoColor=white)](https://drive.google.com/drive/folders/1Kan1NIHjEDnytGzDGkvyebdrgBbUc3bT?usp=drive_link)
   
 </div>
 
@@ -37,6 +37,9 @@ public class AboutMe {
   
 ### Backend
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white)
 ![JDBC](https://img.shields.io/badge/JDBC-007396?style=for-the-badge&logo=java&logoColor=white)
 ![Servlet](https://img.shields.io/badge/Servlet-FF5733?style=for-the-badge&logo=java&logoColor=white)
 ![JSP](https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white)
@@ -44,10 +47,13 @@ public class AboutMe {
 ### Frontend
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
 
 ### Database
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white)
 
 ### Testing
 ![Manual Testing](https://img.shields.io/badge/Manual_Testing-8A2BE2?style=for-the-badge&logo=testing-library&logoColor=white)
@@ -79,18 +85,16 @@ public class AboutMe {
 
 
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-dark.svg" width="80%">
+</div>
 <br>
 
 
-
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=pavanwakade&theme=github-compact&hide_border=true" width="800">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&animation=twinkling"/>
 </div>
 
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=pavanwakade&color=blue" alt="Profile views">
-</p>
 <div align="center">
   ⭐️ Created with precision by <a href="https://github.com/pavanwakade">Pavan Wakade</a> 💻
 </div>
